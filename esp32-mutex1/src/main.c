@@ -10,7 +10,7 @@
 
 #define TASK_RUNNING_TIME_MS            5000
 
-static const char* TAG = "BinarySemphr";
+static const char* TAG = "Mutex";
 
 struct TaskParam
 {
@@ -28,14 +28,14 @@ void app_main()
 
     vTaskPrioritySet(NULL, TASK_MAIN_PRIORITY);
 
-	/* Create binary semaphore */
-    SemaphoreHandle_t xSemaphore = xSemaphoreCreateBinary();
+	/* Create Mutex */
+    SemaphoreHandle_t xSemaphore = xSemaphoreCreateMutex();
     if (xSemaphore == NULL)
     {
-        ESP_LOGE(TAG, "[app_main] Error creating binary semaphore.");
+        ESP_LOGE(TAG, "[app_main] Error creating Mutex.");
         exit(EXIT_FAILURE);
     }
-    ESP_LOGI(TAG, "[app_main] Binary semaphore created.");    
+    ESP_LOGI(TAG, "[app_main] Mutex created.");    
 
     for (int i = 0; i < NUM_TASKS; i++)
     {
@@ -50,7 +50,7 @@ void app_main()
     https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/system/freertos.html#semaphore-api 
     xSemaphoreCreateBinary() is created in a state such that the semaphore must first be ‘given’ before it can be ‘taken’.
     */
-    xSemaphoreGive(xSemaphore);
+    //xSemaphoreGive(xSemaphore);
     
     /* Wait TASK_RUNNING_TIME_MS ms */
     ESP_LOGI(TAG, "[app_main] Entering blocked state...");
@@ -68,7 +68,7 @@ void app_main()
     if (xSemaphore != NULL)
     {
         vSemaphoreDelete(xSemaphore);
-        ESP_LOGI(TAG, "[app_main] Binary semaphore deleted.");
+        ESP_LOGI(TAG, "[app_main] Mutex deleted.");
     }
 }
 
