@@ -75,6 +75,7 @@ void app_main()
  */
 void vTask1(void * parameter)
 {
+  TickType_t xLastWakeTime = xTaskGetTickCount();
   double aux = acos(-1.0);  /* aux = PI */
  
   /* loop forever */
@@ -90,6 +91,7 @@ void vTask1(void * parameter)
         }
     }    
     aux = acos(-1.0);
+    vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(200));
   }
 }
 
@@ -98,6 +100,7 @@ void vTask1(void * parameter)
  */
 void vTask2(void * parameter)
 {
+  TickType_t xLastWakeTime = xTaskGetTickCount();
   double aux = acos(-1.0);  /* aux = PI */
  
   /* loop forever */
@@ -113,6 +116,7 @@ void vTask2(void * parameter)
         }
     }
     aux = acos(-1.0);
+    vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(100));
   }
 }
 
@@ -121,6 +125,7 @@ void vTask2(void * parameter)
  */
 void vTask3(void * parameter)
 {
+  TickType_t xLastWakeTime = xTaskGetTickCount();
   double aux = acos(-1.0);  /* aux = PI */
  
   /* loop forever */
@@ -136,5 +141,6 @@ void vTask3(void * parameter)
         }
     }
     aux = acos(-1.0);
+    vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(100));
   }
 }
